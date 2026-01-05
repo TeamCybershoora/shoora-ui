@@ -1,7 +1,6 @@
 {
-  "buildCommand": "cd apps/shoora-ui-docs pnpm build",
-  "installCommand": "pnpm install", 
   "framework": "nextjs",
-  "rootDirectory": "apps/shoora-ui-docs",
-  "outputDirectory": "apps/shoora-ui-docs/.next"
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".next"
 }
