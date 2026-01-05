@@ -1,17 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShapeBlur } from "@cybershoora/shoora-ui"
 
 export default function View() {
   const [key, setKey] = useState(0);
   const [variation, setVariation] = useState(0);
-  const [pixelRatio, setPixelRatio] = useState(window.devicePixelRatio || 1);
+  const [pixelRatio, setPixelRatio] = useState(1);
   const [shapeSize, setShapeSize] = useState(1.5);
   const [roundness, setRoundness] = useState(0.5);
   const [borderSize, setBorderSize] = useState(0.05);
   const [circleSize, setCircleSize] = useState(0.5);
   const [circleEdge, setCircleEdge] = useState(1);
+
+  useEffect(() => {
+    setPixelRatio(window.devicePixelRatio || 1);
+  }, []);
 
   return (
     <div className="space-y-8 p-4">

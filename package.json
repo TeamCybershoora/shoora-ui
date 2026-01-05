@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@cybershoora/shoora-ui": "workspace:*",
+    "@gsap/react": "^2.1.2",
     "@types/prismjs": "^1.26.5",
+    "framer-motion": "^11.18.2",
     "gsap": "^3.13.0",
     "next": "16.0.1",
     "postprocessing": "^6.38.0",
