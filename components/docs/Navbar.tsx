@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 import { FaGithub } from 'react-icons/fa';
 import Sidebar from './Sidebar';
@@ -12,10 +12,26 @@ interface NavbarProps {
   searchQuery: string;
 }
 
+/* 🔥 MOBILE DETECTION HOOK */
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  return isMobile;
+}
+
 export default function Navbar({ onSearch, searchQuery }: NavbarProps) {
   const [localQuery, setLocalQuery] = useState(searchQuery);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const isMobile = useIsMobile(); // ✅ IMPORTANT
 
   return (
     <>
@@ -25,10 +41,10 @@ export default function Navbar({ onSearch, searchQuery }: NavbarProps) {
 
         <div className="max-w-7xl mx-auto px-4 h-full">
 
-          {/* ================= DESKTOP ================= */}
+          {/* ================= DESKTOP NAVBAR ================= */}
           <div className="hidden md:flex items-center h-full w-full">
 
-            {/* LEFT */}
+            {/* LOGO */}
             <div className="flex items-center gap-3 -ml-20">
               <img src={logo} className="w-6 h-6" />
               <span className="text-white font-bold text-xl">Shoora UI</span>
@@ -79,73 +95,78 @@ export default function Navbar({ onSearch, searchQuery }: NavbarProps) {
             </div>
           </div>
 
-          {/* ================= MOBILE ================= */}
-          <div className="flex md:hidden items-center justify-between h-full">
+          {/* ================= MOBILE NAVBAR ================= */}
+          {isMobile && (
+            <div className="flex items-center justify-between h-full md:hidden">
+              <div className="flex items-center gap-2">
+                <img src={logo} className="w-6 h-6" />
+                <span className="text-white font-bold text-lg">Shoora UI</span>
+              </div>
 
-            <div className="flex items-center gap-2">
-              <img src={logo} className="w-6 h-6" />
-              <span className="text-white font-bold text-lg">Shoora UI</span>
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="p-2 text-white hover:bg-white/10 rounded-md"
+              >
+                <FiMenu size={22} />
+              </button>
             </div>
-
-            <button
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 text-white hover:bg-white/10 rounded-md"
-            >
-              <FiMenu size={22} />
-            </button>
-          </div>
+          )}
         </div>
       </nav>
 
       {/* ================= MOBILE SIDEBAR ================= */}
-      <div
-        className={`fixed inset-y-0 right-0 z-50 w-80 bg-[#030712] border-l border-white/10 transform transition-transform duration-300 md:hidden ${
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex flex-col h-full">
+      {isMobile && (
+        <>
+          <div
+            className={`fixed inset-y-0 right-0 z-50 w-80 bg-[#030712] border-l border-white/10 transform transition-transform duration-300 ${
+              isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
+            <div className="flex flex-col h-full">
 
-          {/* HEADER */}
-          <div className="p-4 border-b border-white/10 flex items-center justify-between">
-            <span className="text-white font-bold">Shoora UI</span>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 text-white hover:bg-white/10 rounded-md"
-            >
-              <FiX size={20} />
-            </button>
-          </div>
+              {/* HEADER */}
+              <div className="p-4 border-b border-white/10 flex items-center justify-between">
+                <span className="text-white font-bold">Shoora UI</span>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 text-white hover:bg-white/10 rounded-md"
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
 
-          {/* 🔍 SEARCH INSIDE SIDEBAR
-          <div className="p-4 border-b border-white/10">
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-md">
-              <input
-                type="text"
-                value={localQuery}
-                onChange={(e) => {
-                  setLocalQuery(e.target.value);
-                  onSearch?.(e.target.value);
-                }}
-                placeholder="Search components..."
-                className="w-full bg-transparent px-3 py-2 text-sm text-white outline-none placeholder-gray-400"
-              />
-              <FiSearch className="mr-3 text-gray-400" size={16} />
+              {/* SEARCH */}
+              <div className="p-4 border-b border-white/10">
+                <div className="flex items-center bg-white/5 border border-white/10 rounded-md">
+                  <input
+                    type="text"
+                    value={localQuery}
+                    onChange={(e) => {
+                      setLocalQuery(e.target.value);
+                      onSearch?.(e.target.value);
+                    }}
+                    placeholder="Search components..."
+                    className="w-full bg-transparent px-3 py-2 text-sm text-white outline-none placeholder-gray-400"
+                  />
+                  <FiSearch className="mr-3 text-gray-400" size={16} />
+                </div>
+              </div>
+
+              {/* SIDEBAR */}
+              <div className="flex-1 overflow-y-auto">
+                <Sidebar searchQuery={localQuery} />
+              </div>
             </div>
-          </div> */}
-
-          {/* SIDEBAR CONTENT */}
-          <div className="flex-1 overflow-y-auto">
-            <Sidebar searchQuery={localQuery} />
           </div>
-        </div>
-      </div>
 
-      {/* OVERLAY */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
+          {/* OVERLAY */}
+          {isMobileMenuOpen && (
+            <div
+              className="fixed inset-0 z-40 bg-black/50"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+          )}
+        </>
       )}
     </>
   );
