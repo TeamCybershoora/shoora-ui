@@ -4,10 +4,10 @@ import 'prismjs/components/prism-bash';
 
 
 const packageManagers = [
-  { id: 'pnpm', name: 'pnpm', command: 'pnpm add @shoora-ui/split-text' },
-  { id: 'npm', name: 'npm', command: 'npm install @shoora-ui/split-text' },
-  { id: 'yarn', name: 'yarn', command: 'yarn add @shoora-ui/split-text' },
-  { id: 'bun', name: 'bun', command: 'bun add @shoora-ui/split-text' },
+  { id: 'pnpm', name: 'pnpm', command: 'pnpm add @cybershoora/shoora-ui' },
+  { id: 'npm', name: 'npm', command: 'npm install @cybershoora/shoora-ui' },
+  { id: 'yarn', name: 'yarn', command: 'yarn add @cybershoora/shoora-ui' },
+  { id: 'bun', name: 'bun', command: 'bun add @cybershoora/shoora-ui' },
 ];
 
 export default function Install() {
@@ -121,8 +121,6 @@ export default function Install() {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }

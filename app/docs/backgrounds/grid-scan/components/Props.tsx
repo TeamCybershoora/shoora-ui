@@ -181,7 +181,7 @@ export default function Props() {
   return (
     <>
       <h3 className="text-lg font-medium text-white mb-4">Props</h3>
-      <div className="overflow-hidden border border-purple-300 rounded-lg bg-transparent">
+      <div className="overflow-auto border border-purple-300 rounded-lg bg-transparent">
         <table className="min-w-full divide-y divide-purple-300 bg-transparent">
           <thead className="bg-transparent">
             <tr>

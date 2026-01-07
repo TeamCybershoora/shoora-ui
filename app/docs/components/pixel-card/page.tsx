@@ -17,7 +17,7 @@ export default function AsciiTextPage() {
   return (
     <div className="w-full max-w-full px-0 mx-0 space-y-8">
       <div className="py-8">
-        <h1 className="text-8xl font-bold text-white">
+        <h1 className="text-6xl md:text-8xl font-bold text-white">
           Pixel Card
         </h1>
       </div>

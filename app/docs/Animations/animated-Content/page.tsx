@@ -17,7 +17,7 @@ export default function AnimatedContentPage() {
     <div className="w-full max-w-full px-0 mx-0 space-y-8">
       {/* Large Split Text Heading */}
       <div className="py-8">
-        <h1 className="text-8xl font-bold text-white">
+                <h1 className="text-6xl md:text-8xl font-bold text-white">
            Animated Content
         </h1>
       </div>

@@ -16,8 +16,8 @@ export default function AsciiTextPage() {
   return (
     <div className="w-full max-w-full px-0 mx-0 space-y-8">
       {/* Large Split Text Heading */}
-      <div className="py-8">
-        <h1 className="text-8xl font-bold text-white">
+      <div className="py-8">             
+          <h1 className="text-6xl md:text-8xl font-bold text-white">
           Fuzzy Text
         </h1>
       </div>
